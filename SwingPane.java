@@ -39,11 +39,12 @@ public class SwingPane extends JLayeredPane {
 	System.out.println(gridWidth+" "+gridHeight+" "+cellDim.width+" "+cellDim.height);
 	//mfw window size doesn't make sense
 	int w = gridWidth * cellDim.width;
-	int h = (gridHeight+1) * (cellDim.height+1); //wtf
+	int h = gridHeight * cellDim.height; //wtf
 	paneDim = new Dimension(w,h);
 	setSize(paneDim);
 	setMinimumSize(paneDim);
 	setPreferredSize(paneDim);
+	System.out.println(paneDim);
 	curimg = new BufferedImage(w,h,BufferedImage.TYPE_4BYTE_ABGR);
     }
 

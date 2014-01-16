@@ -4,7 +4,6 @@ public class Game {
     private Gui gui = new Gui();
     private Level[] levels;
     private Level curlevel;
-    private Tile curtile;
     
     public Game() {
 	levels = new Level[10];
@@ -24,6 +23,7 @@ public class Game {
     }
 
     public void refreshMap() {
+	Tile curtile;
 	for (int y=0; y<curlevel.getTiles()[0].length; y++) {
 	    for (int x=0; x<curlevel.getTiles().length; x++) {
 		curtile = curlevel.getTiles()[x][y];

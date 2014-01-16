@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class Gui extends JFrame implements ActionListener {
     final private Font font = new Font("Lucida Console",Font.PLAIN,12);
+    private Dimension guiDim = new Dimension();
     private SwingPane pane;
     private Container content;
 
@@ -23,16 +24,22 @@ public class Gui extends JFrame implements ActionListener {
     public Gui() {
 	setTitle("yoloRL");
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
+	setResizable(false);
 	content = getContentPane();
 	content.setBackground(Color.BLUE);
         
 
 	pane = new SwingPane(80,25,font);
-	setSize(pane.getPaneDim());
-	setMinimumSize(pane.getPaneDim());
-	setPreferredSize(pane.getPaneDim());
+	pack();
+	System.out.println(getInsets());
+	guiDim.height = pane.getPaneDim().height + 
+	    getInsets().top + getInsets().bottom;
+	guiDim.width = pane.getPaneDim().width + 
+	    getInsets().left + getInsets().right;
+
+	setSize(guiDim);
+
 	content.add(pane);
-	
 	setVisible(true);
     }
 

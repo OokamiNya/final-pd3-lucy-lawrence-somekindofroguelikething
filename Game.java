@@ -4,11 +4,13 @@ public class Game {
     private Gui gui = new Gui();
     private Level[] levels;
     private Level curlevel;
+    private Player p1 = new Player(); 
     
     public Game() {
 	levels = new Level[10];
 	levels[0] = new Level();
 	curlevel = levels[0];
+	initGame();
     }
 
     public void paneTest() {
@@ -33,6 +35,10 @@ public class Game {
 	    }
 	}
 	getPane().refresh();
+    }
+
+    public void initGame() {
+	curlevel.getTile(0,0).setBaka(p1);
     }
 
     public Gui getGui() {return gui;}

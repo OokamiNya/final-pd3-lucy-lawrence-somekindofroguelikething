@@ -10,7 +10,7 @@ public class Position implements Comparable<Position> {
     public int getx() {return x;}
     public int gety() {return y;}
 
-    public boolean equals(Object o) {System.out.println("equals()");
+    public boolean equals(Object o) {
 	if (o==null) {return false;}
 	if (o.getClass() != this.getClass()) {return false;}
 	else {

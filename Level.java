@@ -62,24 +62,17 @@ public class Level {
 	    for (int i=0; i<wallsok.length; i++) {
 		wallsok[i].setType(2);
 	    }
-	    System.out.println(toString());
 	}
 
 	public int yoff(Tile t) {
-	    if(t.gety()<y){
-	    System.out.println(-1);return -1;}
-	    if(t.gety()>y+h-1){
-	    System.out.println(1);return 1;}
-	    System.out.println(0);
+	    if(t.gety()<y){return -1;}
+	    if(t.gety()>y+h-1){return 1;}
 	    return 0;
 	}
 
 	public int xoff(Tile t) {
-	    if(t.getx()<x){
-	    System.out.println(-1);return -1;}
-	    if(t.getx()>x+w-1){
-	    System.out.println(1);return 1;}
-	    System.out.println(0);
+	    if(t.getx()<x){return -1;}
+	    if(t.getx()>x+w-1){return 1;}
 	    return 0;
 	}
 
@@ -98,7 +91,6 @@ public class Level {
 	}
 
 	rooms = new Room[rng.nextInt(5)+5];
-	//rooms = new Room[2];
 	int curroom = 0;
 	Room r;
 	while(curroom < rooms.length) {
@@ -172,7 +164,6 @@ public class Level {
 				      nocorridor);
 
 	p.generatePath();
-	System.out.println("yolo");
 	for (int i=0; i<p.getPath().size(); i++) {
 	    Position curpos = p.getPath().get(i);
 	    tiles[curpos.getx()][curpos.gety()].setType(3);
@@ -187,20 +178,6 @@ public class Level {
 	    cury=p.getPath().get(i).gety();
 	    tiles[curx][cury].setType(3);
 	}
-
-	/*
-	for (int i=Math.min(starttile.getx(),endtile.getx()); 
-	     i<Math.max(starttile.getx(),endtile.getx()); i++) {
-	    if(tiles[i][starttile.gety()].getType()!=0)
-		tiles[i][starttile.gety()].setType(3);
-	}
-
-	for (int i=Math.min(starttile.gety(),endtile.gety());
-	     i<Math.max(starttile.gety(),endtile.gety()); i++) {
-	    if(tiles[endtile.getx()][i].getType()!=0)
-		tiles[endtile.getx()][i].setType(3);
-	}
-	*/
     }
 
     public Tile[][] getTiles() {return tiles;}

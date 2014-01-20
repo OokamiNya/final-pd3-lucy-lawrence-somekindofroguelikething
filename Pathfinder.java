@@ -30,9 +30,6 @@ public class Pathfinder {
 		}
 	    }
 	}
-	System.out.println(done);
-	System.out.println(doing);
-	System.out.println(later);
 	    
 	movecosts[startx][starty] = 0;
 	finish(new Position(startx,starty));
@@ -41,24 +38,11 @@ public class Pathfinder {
     }
 
     public void generatePath() {
-	//System.out.println(done);
-	//System.out.println(doing);
-	//System.out.println(later);
 	while (!done.contains(new Position(endx, endy))) {
-	    //System.out.println("swag");
 	    finish(nextCheapest());
 	}
-	debugshow();
-
-	for (int j=0; j<movecosts[0].length; j++) {
-	    for (int i=0; i<movecosts.length; i++) {
-		if(movecosts[i][j]>900000) {System.out.print("XX ");}
-		else if(movecosts[i][j]<10 && movecosts[i][j]>-1) {
-		    System.out.print(" "+movecosts[i][j]+" ");
-		}else {System.out.print(movecosts[i][j]+" ");}
-	    }
-	    System.out.println();
-	}
+	//debugshow();
+	//movecostshow();
         Position p = new Position(endx,endy);
 	while (!p.equals(new Position(startx,starty))) {
 	    path.add(p);
@@ -71,9 +55,6 @@ public class Pathfinder {
 	Position r = new Position(-1,-1);
 	int mincost = Integer.MAX_VALUE;
 	Iterator it = doing.iterator();
-	//System.out.println(doing);
-	System.out.println(doing.size());
-	//System.out.println(done.contains(new Position(startx,starty)));
         while (it.hasNext()) {
 	    Position curpos = (Position) it.next();
 	    int curx = curpos.getx();
@@ -83,7 +64,6 @@ public class Pathfinder {
 		mincost = nextcost;
 		r = curpos;
 	    }
-	    //System.out.println(curpos);
 	}
 	return r;
     }
@@ -99,7 +79,6 @@ public class Pathfinder {
 		}
 	    }
 	}
-	System.out.println("FUCK");
 	return new Position(-1,-1);
     }
 
@@ -118,21 +97,19 @@ public class Pathfinder {
     private void finish(Position p) {
 	doing.remove(p);
 	done.add(p);
-	System.out.println("p: "+p);
 	for (int i=0; i<Direction.ORTHO.length; i++) {
 	    Direction curdir = Direction.ORTHO[i];
 	    Position curpos = new Position(p.getx()+curdir.getx(), p.gety()+curdir.gety());
 	    int curx = curpos.getx();
 	    int cury = curpos.gety();
 	    if (!done.contains(curpos)) {
-	    if (curx>=0 && curx<obstacles.length && cury>=0 && cury<obstacles[0].length) {
-		if (!obstacles[curx][cury]) {
-		    System.out.println(curpos);
-		    later.remove(curpos);
-		    doing.add(curpos);
-		    movecosts[curx][cury] = movecosts[p.getx()][p.gety()] + 1;
+		if (curx>=0 && curx<obstacles.length && cury>=0 && cury<obstacles[0].length) {
+		    if (!obstacles[curx][cury]) {
+			later.remove(curpos);
+			doing.add(curpos);
+			movecosts[curx][cury] = movecosts[p.getx()][p.gety()] + 1;
+		    }
 		}
-	    }
 	    }
 	}
     }
@@ -162,6 +139,18 @@ public class Pathfinder {
 	for (int y=0; y<c[0].length; y++) {
 	    for (int x=0; x<c.length; x++) {
 		System.out.print(c[x][y]);
+	    }
+	    System.out.println();
+	}
+    }
+    
+    private void movecostshow() {
+	for (int j=0; j<movecosts[0].length; j++) {
+	    for (int i=0; i<movecosts.length; i++) {
+		if(movecosts[i][j]>900000) {System.out.print("XX ");}
+		else if(movecosts[i][j]<10 && movecosts[i][j]>-1) {
+		    System.out.print(" "+movecosts[i][j]+" ");
+		}else {System.out.print(movecosts[i][j]+" ");}
 	    }
 	    System.out.println();
 	}

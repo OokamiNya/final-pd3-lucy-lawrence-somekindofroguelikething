@@ -31,7 +31,6 @@ public class Gui extends JFrame implements ActionListener {
 
 	pane = new SwingPane(80,25,font);
 	pack();
-	System.out.println(getInsets());
 	guiDim.height = pane.getPaneDim().height + 
 	    getInsets().top + getInsets().bottom;
 	guiDim.width = pane.getPaneDim().width + 

@@ -179,6 +179,7 @@ public class Level {
 	}
 	startdoor.setType(3);
 	enddoor.setType(3);
+
 	int curx = starttile.getx();
 	int cury = starttile.gety();
        	for (int i=0; i<p.getPath().size(); i++) {

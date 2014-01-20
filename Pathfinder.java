@@ -93,10 +93,13 @@ public class Pathfinder {
 	    Direction curdir = Direction.ORTHO[i];
 	    int curx = p.getx()+curdir.getx();
 	    int cury = p.gety()+curdir.gety();
-	    if(movecosts[curx][cury]==movecosts[p.getx()][p.gety()]-1) {
-		return new Position(curx,cury);
+	    if (curx>=0 && curx<obstacles.length && cury>=0 && cury<obstacles[0].length) {
+		if(movecosts[curx][cury]==movecosts[p.getx()][p.gety()]-1) {
+		    return new Position(curx,cury);
+		}
 	    }
 	}
+	System.out.println("FUCK");
 	return new Position(-1,-1);
     }
 
@@ -122,7 +125,7 @@ public class Pathfinder {
 	    int curx = curpos.getx();
 	    int cury = curpos.gety();
 	    if (!done.contains(curpos)) {
-	    if (curx>=0 && curx<obstacles.length && cury>=0 && cury<obstacles.length) {
+	    if (curx>=0 && curx<obstacles.length && cury>=0 && cury<obstacles[0].length) {
 		if (!obstacles[curx][cury]) {
 		    System.out.println(curpos);
 		    later.remove(curpos);

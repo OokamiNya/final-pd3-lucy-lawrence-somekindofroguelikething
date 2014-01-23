@@ -70,6 +70,14 @@ public class SwingPane extends JLayeredPane {
 
     public void putString(String s, int x, int y) {putString(s,x,y,deffgcol,defbgcol);}
 
+    public void clearRect(int x, int y, int w, int h) {
+	for(int j=0; j<h; j++) {
+	    for(int i=0; i<w; i++) {
+		putChar(' ',x+i,y+j,Color.WHITE,Color.BLACK);
+	    }
+	}
+    }
+
     public void refresh() {
 	Graphics2D g = curimg.createGraphics();
 	for (int x=0; x<gridWidth; x++) {

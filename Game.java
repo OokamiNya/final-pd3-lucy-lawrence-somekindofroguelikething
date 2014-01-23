@@ -9,6 +9,7 @@ public class Game {
     private Player p1 = new Player(); 
     private Random rng = new Random();
     private int turncount = 0;
+    private String curmessage = "Welcome to yoloRL, home of the at sign. May I take your order?";
     
     public Game() {
 	levels = new Level[10];
@@ -40,6 +41,11 @@ public class Game {
 	}
     }
 
+    public void refreshMessages() {
+	getPane().clearRect(1,22,78,2);
+	getPane().putString(curmessage,1,22);
+    }
+
     public void initGame() {
         spawnMob(p1);
 	for (int i=0; i<20; i++) {spawnItem(new Item());}
@@ -60,11 +66,15 @@ public class Game {
     public void refreshEverything() {
 	refreshMap();
 	refreshStats();
+	refreshMessages();
 	getPane().refresh();
     }
 
     public void stuff() {
 	turncount++;
+	String tileDesc = p1.getTile().getDescription();
+	//if (tileDesc.length()>0) {curmessage=tileDesc;}
+	curmessage=tileDesc;
     }
 
     public boolean doCommand(Command c) {

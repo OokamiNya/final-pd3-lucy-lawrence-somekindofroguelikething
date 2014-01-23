@@ -49,6 +49,17 @@ public class Tile {
 	}
     }
 
+    public String getDescription() {
+	String r = "";
+	if (items.size()>0) {
+	    r+="You see here: ";
+	    for(int i=0; i<items.size(); i++) {
+		r+=items.get(i).getName()+", ";
+	    }
+	}
+	return r;
+    }
+
     public int getx() {return x;}
     public int gety() {return y;}
     public int getType() {return type;}

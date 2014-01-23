@@ -42,6 +42,7 @@ public class Creature {
     
     public char getDispChar() {return displayChar;}
     public Color getDispColor() {return displayColor;}
+    public Tile getTile() {return curtile;}
     public int getMaxHP() {return maxhp;}
     public int getHP() {return hp;}
     public ArrayList<Item> getInventory() {return inventory;}

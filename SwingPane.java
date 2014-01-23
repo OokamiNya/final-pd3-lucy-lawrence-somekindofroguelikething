@@ -50,6 +50,26 @@ public class SwingPane extends JLayeredPane {
 	changed[x][y] = true;
     }
 
+    public void putString(String s, int x, int y, Color fgcol, Color bgcol) {
+	for (int i=0; i<s.length(); i++) {
+	    if (x+i>=gridWidth) {break;}
+	    putChar(s.charAt(i),x+i,y,fgcol,bgcol);
+	}
+    }
+
+    public void putRectangle(char c, int x, int y, int w, int h, Color fgcol, Color bgcol) {
+	for (int i=0; i<w; i++) {
+	    putChar(c,x+i,y,fgcol,bgcol);
+	    putChar(c,x+i,y+h-1,fgcol,bgcol);
+	}
+	for (int i=0; i<h; i++) {
+	    putChar(c,x,y+i,fgcol,bgcol);
+	    putChar(c,x+w-1,y+i,fgcol,bgcol);
+	}
+    }
+
+    public void putString(String s, int x, int y) {putString(s,x,y,deffgcol,defbgcol);}
+
     public void refresh() {
 	Graphics2D g = curimg.createGraphics();
 	for (int x=0; x<gridWidth; x++) {

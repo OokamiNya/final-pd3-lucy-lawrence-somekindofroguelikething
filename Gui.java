@@ -45,7 +45,6 @@ public class Gui extends JFrame implements ActionListener {
 	setVisible(true);
 	addKeyListener(keylisten);
 	requestFocusInWindow();
-	System.out.println(isFocusable());
     }
 
     public SwingPane getPane() {return pane;}

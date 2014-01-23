@@ -7,7 +7,8 @@ public enum Direction {
     UPLEFT    (-1,-1),
     UPRIGHT   ( 1,-1),
     DOWNLEFT  (-1, 1),
-    DOWNRIGHT ( 1, 1);
+    DOWNRIGHT ( 1, 1),
+    NONE      ( 0, 0);
 
     public static final Direction[] ORTHO = {UP, DOWN, LEFT, RIGHT};
 

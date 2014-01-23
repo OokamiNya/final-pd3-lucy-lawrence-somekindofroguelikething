@@ -10,6 +10,7 @@ public class Creature {
     }
 
     public boolean move(Direction d) {
+	if(d==Direction.NONE){return true;}
 	if(curtile.getTileAt(d)!=null) {
 	    Tile targettile = curtile.getTileAt(d);
 	    if(targettile.isWalkable() && targettile.getBaka()==null) {

@@ -28,12 +28,19 @@ public class Game {
 				  curtile.getFGCol(),curtile.getBGCol());
 	    }
 	}
-	getPane().refresh();
+    }
+
+    public void refreshStats() {
+	getPane().putString("yolo",42,1);
+	getPane().putString("Turn: "+turncount,42,2);
     }
 
     public void initGame() {
         spawnMob(p1);
-	refreshMap();
+	getPane().putRectangle(' ',0,0,42,22,Color.WHITE,Color.WHITE);
+	getPane().putRectangle(' ',0,21,80,4,Color.WHITE,Color.WHITE);
+	getPane().putRectangle(' ',41,0,39,22,Color.WHITE,Color.WHITE);
+	refreshEverything();
     }
 
     public void gameLoop(KeyEvent e) {
@@ -41,9 +48,15 @@ public class Game {
         if(doCommand(Command.keyEventToCommand(e))) {
 	    stuff();
 	}
-	refreshMap();
+	refreshEverything();
     }
     
+    public void refreshEverything() {
+	refreshMap();
+	refreshStats();
+	getPane().refresh();
+    }
+
     public void stuff() {
 	turncount++;
     }
@@ -58,6 +71,7 @@ public class Game {
 	case MOVE_UPRIGHT: return p1.move(Direction.UPRIGHT);
 	case MOVE_DOWNLEFT: return p1.move(Direction.DOWNLEFT);
 	case MOVE_DOWNRIGHT: return p1.move(Direction.DOWNRIGHT);
+	case WAIT: return p1.move(Direction.NONE);
 	case INVALID_COMMAND: System.out.println("mfw"); return false;
 	default: System.out.println("whatever"); return false;
 	}

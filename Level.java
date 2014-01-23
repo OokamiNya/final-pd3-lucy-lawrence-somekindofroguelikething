@@ -5,6 +5,7 @@ public class Level {
     final private int gridHeight = 20;
     private Tile[][] tiles = new Tile[gridWidth][gridHeight];
     private Room[] rooms;
+    private Tile[] roomtiles;
     private boolean[][] valid = new boolean[gridWidth][gridHeight];
     private boolean[][] nocorridor = new boolean[gridWidth][gridHeight];
     private Random rng = new Random();
@@ -84,7 +85,7 @@ public class Level {
     public Level() {
 	for (int y=0; y<tiles[0].length; y++) {
 	    for (int x=0; x<tiles.length; x++) {
-	        tiles[x][y] = new Tile(x,y);
+	        tiles[x][y] = new Tile(x,y,this);
 	        valid[x][y] = true;
 		nocorridor[x][y] = false;
 	    }
@@ -102,11 +103,26 @@ public class Level {
 		break;
 	    }
 	}
-
+	
+	int roomtilecount = 0;
+	for (int i=0; i<rooms.length; i++) {
+	    if (rooms[i]!=null) {
+		roomtilecount += (rooms[i].w*rooms[i].h);
+	    } else {
+		break;
+	    }
+	}
+	roomtiles = new Tile[roomtilecount];
+	
+	int curroomtile = 0;
 	for (int y=0; y<tiles[0].length; y++) {
 	    for (int x=0; x<tiles.length; x++) {
 	        if (tiles[x][y].getType() != -1) {
 		    nocorridor[x][y] = true;
+		}
+		if (tiles[x][y].getType() == 0) {
+		    roomtiles[curroomtile] = tiles[x][y];
+		    curroomtile++;
 		}
 	    }
 	}
@@ -181,5 +197,9 @@ public class Level {
     }
 
     public Tile[][] getTiles() {return tiles;}
-    public Tile getTile(int x, int y) {return tiles[x][y];}
+    public Tile getTile(int x, int y) {
+	if(x>=0 && y>=0 && x<tiles.length && y<tiles[0].length) {return tiles[x][y];}
+	return null;
+    }
+    public Tile[] getRoomTiles() {return roomtiles;}
 }

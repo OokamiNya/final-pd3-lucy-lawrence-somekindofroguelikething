@@ -7,21 +7,24 @@ public class Gui extends JFrame implements ActionListener {
     private Dimension guiDim = new Dimension();
     private SwingPane pane;
     private Container content;
+    private MyKeyListener keylisten = new MyKeyListener();
+    private Game g;
 
     public void actionPerformed(ActionEvent e) {
     }
 
     private class MyKeyListener implements KeyListener {
 	public void keyPressed(KeyEvent e) {
-	    //e.getKeyChar()
 	}
 	public void keyTyped(KeyEvent e) {
+	    g.gameLoop(e);
 	}
 	public void keyReleased(KeyEvent e) {
 	}
     }
 
-    public Gui() {
+    public Gui(Game g) {
+	this.g = g;
 	setTitle("yoloRL");
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
 	setResizable(false);
@@ -40,6 +43,9 @@ public class Gui extends JFrame implements ActionListener {
 
 	content.add(pane);
 	setVisible(true);
+	addKeyListener(keylisten);
+	requestFocusInWindow();
+	System.out.println(isFocusable());
     }
 
     public SwingPane getPane() {return pane;}

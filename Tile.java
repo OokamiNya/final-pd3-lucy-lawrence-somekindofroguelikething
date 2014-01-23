@@ -3,13 +3,15 @@ import java.awt.Color;
 public class Tile {
     private int x,y;
     private int type;
+    private Level lev;
     private Color fgcol, bgcol;
     private Creature baka;
     private char debugoverride=' ';
     
-    public Tile(int x, int y) {
+    public Tile(int x, int y, Level l) {
 	this.x = x;
 	this.y = y;
+	lev = l;
 	type = -1;
 	fgcol = Color.LIGHT_GRAY;
 	bgcol = Color.BLACK;
@@ -58,8 +60,16 @@ public class Tile {
 	}
     }
 
+    public Creature getBaka() {return baka;}
+
     public void setType(int n) {type = n;}
     public void setBGCol(Color c) {bgcol = c;}
     public void setBaka(Creature c) {baka = c;}
     public void setDebugOverride(char c) {debugoverride = c;}
+
+    public Tile getTileAt(Direction d) {return lev.getTile(x+d.getx(),y+d.gety());}
+    public boolean isWalkable() {
+	if (type==0 || type==3) {return true;}
+	return false;
+    }
 }

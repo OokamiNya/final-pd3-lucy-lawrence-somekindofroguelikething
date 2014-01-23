@@ -1,26 +1,20 @@
 import java.awt.Color;
+import java.awt.event.*;
+import java.util.*;
 
 public class Game {
-    private Gui gui = new Gui();
+    private Gui gui = new Gui(this);
     private Level[] levels;
     private Level curlevel;
     private Player p1 = new Player(); 
+    private Random rng = new Random();
+    private int turncount = 0;
     
     public Game() {
 	levels = new Level[10];
 	levels[0] = new Level();
 	curlevel = levels[0];
 	initGame();
-    }
-
-    public void paneTest() {
-	for (int y=0; y<25; y++) {
-	    for (int x=0; x<80; x++) {
-		if ((x+y)%2==1) {getPane().putChar(' ',x,y,Color.WHITE,Color.DARK_GRAY);}
-	        else {getPane().putChar(' ',x,y,Color.WHITE,Color.BLACK);}
-		if (x%5==4 || y%5 ==4) {getPane().putChar(' ',x,y,Color.WHITE,Color.LIGHT_GRAY);}
-	    }
-	}
 	getPane().refresh();
     }
 
@@ -38,13 +32,46 @@ public class Game {
     }
 
     public void initGame() {
-	curlevel.getTile(0,0).setBaka(p1);
+        spawnMob(p1);
+	refreshMap();
+    }
+
+    public void gameLoop(KeyEvent e) {
+	Command.keyEventToCommand(e);
+        if(doCommand(Command.keyEventToCommand(e))) {
+	    stuff();
+	}
+	refreshMap();
+    }
+    
+    public void stuff() {
+	turncount++;
+    }
+
+    public boolean doCommand(Command c) {
+	switch (c) {
+	case MOVE_UP: return p1.move(Direction.UP);
+	case MOVE_DOWN: return p1.move(Direction.DOWN);
+	case MOVE_LEFT: return p1.move(Direction.LEFT);
+	case MOVE_RIGHT: return p1.move(Direction.RIGHT);
+	case MOVE_UPLEFT: return p1.move(Direction.UPLEFT);
+	case MOVE_UPRIGHT: return p1.move(Direction.UPRIGHT);
+	case MOVE_DOWNLEFT: return p1.move(Direction.DOWNLEFT);
+	case MOVE_DOWNRIGHT: return p1.move(Direction.DOWNRIGHT);
+	case INVALID_COMMAND: System.out.println("mfw"); return false;
+	default: System.out.println("whatever"); return false;
+	}
+    }
+
+    public void spawnMob(Creature c) {
+	Tile t = curlevel.getRoomTiles()[rng.nextInt(curlevel.getRoomTiles().length)];
+        t.setBaka(c);
+	c.setTile(t);
     }
 
     public Gui getGui() {return gui;}
     public SwingPane getPane() {return gui.getPane();}
     public Level[] getLevels() {return levels;}
     public Level getCurLevel() {return curlevel;}
-
     
 }

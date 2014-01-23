@@ -10,6 +10,8 @@ public enum Command {
     MOVE_DOWNLEFT,
     MOVE_DOWNRIGHT,
     WAIT,
+    GET_ITEM,
+    DROP_ITEM,
     INVALID_COMMAND
     ;
     
@@ -25,6 +27,8 @@ public enum Command {
 	case '7': return MOVE_UPLEFT;
 	case '8': return MOVE_UP;
 	case '9': return MOVE_UPRIGHT;
+	case 'g': return GET_ITEM;
+	case 'd': return DROP_ITEM;
 	default:  return INVALID_COMMAND;
 	}
     }

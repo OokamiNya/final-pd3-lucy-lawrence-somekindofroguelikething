@@ -33,10 +33,16 @@ public class Game {
     public void refreshStats() {
 	getPane().putString("yolo",42,1);
 	getPane().putString("Turn: "+turncount,42,2);
+	getPane().putString("HP: "+p1.getHP()+"/"+p1.getMaxHP(),42,3);
+	getPane().putString("Inventory: ",42,4);
+	for(int i=0; i<p1.getInventory().size(); i++) {
+	    getPane().putString(p1.getInventory().get(i).getName(),42,5+i);
+	}
     }
 
     public void initGame() {
         spawnMob(p1);
+	for (int i=0; i<20; i++) {spawnItem(new Item());}
 	getPane().putRectangle(' ',0,0,42,22,Color.WHITE,Color.WHITE);
 	getPane().putRectangle(' ',0,21,80,4,Color.WHITE,Color.WHITE);
 	getPane().putRectangle(' ',41,0,39,22,Color.WHITE,Color.WHITE);
@@ -71,6 +77,8 @@ public class Game {
 	case MOVE_UPRIGHT: return p1.move(Direction.UPRIGHT);
 	case MOVE_DOWNLEFT: return p1.move(Direction.DOWNLEFT);
 	case MOVE_DOWNRIGHT: return p1.move(Direction.DOWNRIGHT);
+	case GET_ITEM: return p1.pickUpItem();
+	case DROP_ITEM: return p1.dropItem();
 	case WAIT: return p1.move(Direction.NONE);
 	case INVALID_COMMAND: System.out.println("mfw"); return false;
 	default: System.out.println("whatever"); return false;
@@ -82,6 +90,12 @@ public class Game {
         t.setBaka(c);
 	c.setTile(t);
     }
+
+    public void spawnItem(Item i) {
+	Tile t = curlevel.getRoomTiles()[rng.nextInt(curlevel.getRoomTiles().length)];
+	t.addItem(i);
+    }
+	
 
     public Gui getGui() {return gui;}
     public SwingPane getPane() {return gui.getPane();}

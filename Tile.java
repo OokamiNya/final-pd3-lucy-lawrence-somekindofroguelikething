@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.*;
 
 public class Tile {
     private int x,y;
@@ -6,6 +7,7 @@ public class Tile {
     private Level lev;
     private Color fgcol, bgcol;
     private Creature baka;
+    private ArrayList<Item> items = new ArrayList<Item>();
     private char debugoverride=' ';
     
     public Tile(int x, int y, Level l) {
@@ -17,10 +19,21 @@ public class Tile {
 	bgcol = Color.BLACK;
     }
 
+    public void addItem(Item i) {
+	items.add(i);
+    }
+
+    public void removeItem(Item i) {
+	items.remove(i);
+    }
+
     public char getChar() {
 	if (debugoverride!=' ') {return debugoverride;}
 	if (baka!=null) {
 	    return baka.getDispChar();
+	}
+	if (items.size()>0) {
+	    return items.get(0).getChar();
 	}
 	switch (type) {
 	case 0: //room floor
@@ -61,6 +74,7 @@ public class Tile {
     }
 
     public Creature getBaka() {return baka;}
+    public ArrayList<Item> getItems() {return items;}
 
     public void setType(int n) {type = n;}
     public void setBGCol(Color c) {bgcol = c;}

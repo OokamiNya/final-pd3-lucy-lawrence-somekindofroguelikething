@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.event.*;
 import java.util.*;
+import java.io.*;
 
 public class Game {
     private Gui gui = new Gui(this);
@@ -8,6 +9,7 @@ public class Game {
     private Level curlevel;
     private Player p1 = new Player(); 
     private Random rng = new Random();
+    private ArrayList<Item> items = new ArrayList<Item>();  
     private int turncount = 0;
     private String curmessage = "Welcome to yoloRL, home of the at sign. May I take your order?";
     
@@ -17,6 +19,35 @@ public class Game {
 	curlevel = levels[0];
 	initGame();
 	getPane().refresh();
+    }
+
+    public void readItems() {
+	File itemdata = new File("Items.txt");
+        Scanner s = null;
+	Item curitem = null;
+	try {
+	    s = new Scanner(itemdata);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	while (s.hasNextLine()) {
+	    String line = s.nextLine();
+	    System.out.println(line);
+	    if (line.length()>0) {
+		if (line.charAt(0)=='[' && line.charAt(line.length()-1)==']') {
+		    if (curitem!=null) {items.add(curitem);} 
+		    curitem = new Item();
+		    curitem.setName(line.substring(1,line.length()-1));
+		} else if (line.indexOf(':')!=-1) {
+		    int colon = line.indexOf(':');
+		    String stat = line.substring(0,colon).trim().toLowerCase();
+		    String value = line.substring(colon+1,line.length()).trim();
+		    switch (stat) {
+		    case "char": curitem.setChar(value.charAt(0));
+		    }
+		}
+	    }
+	}
     }
 
     public void refreshMap() {
@@ -47,8 +78,9 @@ public class Game {
     }
 
     public void initGame() {
+	readItems();
         spawnMob(p1);
-	for (int i=0; i<20; i++) {spawnItem(new Item());}
+	for (int i=0; i<20; i++) {spawnItem(randomItem());}
 	getPane().putRectangle(' ',0,0,42,22,Color.WHITE,Color.WHITE);
 	getPane().putRectangle(' ',0,21,80,4,Color.WHITE,Color.WHITE);
 	getPane().putRectangle(' ',41,0,39,22,Color.WHITE,Color.WHITE);
@@ -104,6 +136,10 @@ public class Game {
     public void spawnItem(Item i) {
 	Tile t = curlevel.getRoomTiles()[rng.nextInt(curlevel.getRoomTiles().length)];
 	t.addItem(i);
+    }
+
+    public Item randomItem() {
+	return items.get(rng.nextInt(items.size()));
     }
 	
 

@@ -29,6 +29,8 @@ public class Creature {
 
     public boolean pickUpItem() {
 	if(curtile.getItems().size()==0) {return false;}
+	if(inventory.size()==15) {return false;}
+	if(inventory.size()>15) {System.out.println("how did you even");return false;}
 	Item i=curtile.getItems().get(0);
 	inventory.add(i);
 	curtile.removeItem(i);

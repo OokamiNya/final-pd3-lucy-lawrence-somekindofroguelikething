@@ -1,0 +1,33 @@
+-Food-
+[Apple]
+Char: %
+[Bread]
+Char: %
+[Meat]
+Char: %
+
+-Potions-
+[HP 10 Potion]
+Char: !
+[HP 50 Potion]
+Char: !
+
+-Weapons-
+[Short Sword]
+Char: /
+[Long Sword]
+Char: /
+[Mace]
+Char: /
+[Axe]
+Char: /
+
+-Armor-
+[Cloth Armor]
+Char: #
+[Leather Armor]
+Char: #
+[Chain Mail]
+Char: #
+[Plate Mail]
+Char: #
